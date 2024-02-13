@@ -1,0 +1,140 @@
+:root {
+    --orange: #8abe53;
+    --black: #21252f;
+    --grey: #807c7c;
+    --green-bg: #036c73;
+    --green-body-text: #404040;
+    --white: #ffffff;
+    --box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+    --size: min(10vw, 3rem);
+    --padding: 2rem 10rem;
+}
+
+html,
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font family inter */
+    font-family: 'Inter', sans-serif;
+}
+
+/* hero section css */
+.cont {
+    background-image: url("background-hero.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+/* navbar css section  */
+.navbar {
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    font-weight: 600;
+    /* justify-content: space-between; */
+    position: fixed;
+    padding: 20px 0;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+.cont .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--white);
+}
+
+.navbar-brand {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-brand .logo {
+    width: 11rem;
+    object-fit: contain;
+
+}
+
+.navbar .navbar-nav {
+    display: flex;
+    flex: 3;
+    /* justify-content: center; */
+    gap: 30px;
+    padding: 0 0 0 20vw;
+    align-items: center;
+
+}
+
+.hero-content a {
+    font-size: 1.2rem;
+    color: var(--orange);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease-in-out;
+}
+
+.hero-content a:hover {
+    color: var(--grey);
+    font-weight: 600;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+    font-size: 1.2rem;
+    color: var(--white);
+    transition: color 0.3s ease-in-out;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.navbar.blurred {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    box-shadow: var(--box-shadow);
+}
+
+.navbar.blurred .navbar-nav .nav-item a {
+    color: black;
+}
+
+.navbar.blurred .navbar-nav .nav-item a:hover {
+    color: var(--orange);
+}
+
+.navbar.blurred .line {
+    background-color: black;
+}
+
+.navbar.blurred .navbar-nav .nav-item .nav-link.active {
+    color: var(--orange);
+}
+
+.navbar .navbar-nav .nav-item .nav-link.active {
+    color: var(--orange);
+}
+
+
+.navbar .navbar-nav .nav-item {
+    list-style: none;
+    margin-right: 5px;
+}
+
+.navbar .navbar-nav .nav-item a {
+    text-decoration: none;
+    color: var(--white);
+}
+
+.navbar .navbar-nav .nav-item a:hover {
+    color: var(--orange);
+}
