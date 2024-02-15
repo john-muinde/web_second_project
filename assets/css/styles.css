@@ -1,14 +1,14 @@
+/* Css variables */
 :root {
-    --orange: #8abe53;
+    --green-primary: #8abe53;
     --black: #21252f;
     --grey: #807c7c;
-    --green-bg: #036c73;
-    --green-body-text: #404040;
+    --text-color: #878383;
     --white: #ffffff;
     --box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
-    --size: min(10vw, 3rem);
-    --padding: 2rem 10rem;
 }
+
+/* Root level elements selectors */
 
 html,
 * {
@@ -19,16 +19,25 @@ html,
     font-family: 'Inter', sans-serif;
 }
 
-/* hero section css */
+/* Main Container Section Css */
 .cont {
-    background-image: url("background-hero.jpg");
+    background-image: url("/assets/images/background-hero.jpg");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
     height: 100vh;
 }
 
-/* navbar css section  */
+.cont .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--white);
+}
+
+/* Navbar Css section  */
 .navbar {
     z-index: 1;
     display: flex;
@@ -38,16 +47,6 @@ html,
     position: fixed;
     padding: 20px 0;
     transition: background-color 0.3s ease-in-out;
-}
-
-
-.cont .hero-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    color: var(--white);
 }
 
 .navbar-brand {
@@ -66,24 +65,10 @@ html,
 .navbar .navbar-nav {
     display: flex;
     flex: 3;
-    /* justify-content: center; */
     gap: 30px;
     padding: 0 0 0 20vw;
     align-items: center;
 
-}
-
-.hero-content a {
-    font-size: 1.2rem;
-    color: var(--orange);
-    text-decoration: none;
-    font-weight: 400;
-    transition: color 0.3s ease-in-out;
-}
-
-.hero-content a:hover {
-    color: var(--grey);
-    font-weight: 600;
 }
 
 .navbar .navbar-nav .nav-item .nav-link {
@@ -92,11 +77,6 @@ html,
     transition: color 0.3s ease-in-out;
 }
 
-h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
 
 .navbar.blurred {
     background-color: rgba(255, 255, 255, 0.8);
@@ -109,7 +89,7 @@ h1 {
 }
 
 .navbar.blurred .navbar-nav .nav-item a:hover {
-    color: var(--orange);
+    color: var(--green-primary);
 }
 
 .navbar.blurred .line {
@@ -117,11 +97,11 @@ h1 {
 }
 
 .navbar.blurred .navbar-nav .nav-item .nav-link.active {
-    color: var(--orange);
+    color: var(--green-primary);
 }
 
 .navbar .navbar-nav .nav-item .nav-link.active {
-    color: var(--orange);
+    color: var(--green-primary);
 }
 
 
@@ -136,5 +116,223 @@ h1 {
 }
 
 .navbar .navbar-nav .nav-item a:hover {
-    color: var(--orange);
+    color: var(--green-primary);
+}
+
+/* Element selectors */
+
+a {
+    font-size: 1.2rem;
+    color: var(--green-primary);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+    color: var(--grey);
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+form {
+    width: 80%;
+    padding: 0 8vw;
+}
+
+form input:not([type="submit"]):not([type="reset"]),
+textarea {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    color: var(--text-color);
+    border-radius: 7px;
+}
+
+form input[type="checkbox"] {
+    width: 50%;
+}
+
+form label {
+    width: 50%;
+}
+
+form input:not([type="submit"]):not([type="reset"]):focus,
+textarea:focus {
+    border-radius: 3px;
+    outline: none;
+    border: 2px solid var(--green-primary);
+    color: var(--green-primary);
+    border-radius: 7px;
+}
+
+form textarea {
+    resize: none;
+}
+
+
+form input[type="submit"],
+form input[type="reset"] {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--green-primary);
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.form-container {
+    border: var(--green-primary) solid 1px;
+    border-radius: 10px;
+    padding: 2vw;
+}
+
+/* .form-group:nth-child(even) {
+    background-color: red;
+} */
+
+.form-group input[type="checkbox"] {
+    display: inline-block;
+}
+
+/* Gallery css */
+.gallery-grid {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    justify-items: center;
+    margin: 10px auto;
+    grid-row-start: -1;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+
+/* Grouped class selectors */
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-baseline {
+    align-items: baseline;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.p-3 {
+    padding: 1rem;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0 10vw;
+}
+
+.card {
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    height: 250px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card a:hover {
+    color: var(--grey);
+}
+
+.card .image {
+    width: 100%;
+    height: 90%;
+}
+
+.card .text-content {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.card .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
 }
