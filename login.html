@@ -23,12 +23,12 @@
       href="assets/images/favicon/favicon-16x16.png"
     />
     <link rel="manifest" href="/site.webmanifest" />
-    <title>Artistic Gallery - Gallery</title>
+    <title>Artistic Gallery - Login</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100&display=swap");
     </style>
   </head>
-  <body>
+  <body class="overflow-hidden">
     <div class="cont">
       <nav class="navbar">
         <a class="navbar-brand" href="#">
@@ -46,28 +46,49 @@
             <a class="nav-link" href="about.html">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="gallery.html">Our Gallery</a>
+            <a class="nav-link" href="gallery.html">Our Gallery</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="login.html">Login/Register</a>
+            <a class="nav-link active" href="login.html">Login/Register</a>
           </li>
         </ul>
       </nav>
       <div class="hero-content">
-        <center><h1>All you can see Gallery</h1></center>
+        <div class="d-flex justify-content-center">
+          <form
+            action=""
+            class="unset-form-padding unset-form-width"
+            id="login-form"
+          >
+            <div class="form-container">
+              <h1 class="header-title text-center">Login</h1>
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+              /><br />
+
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your Password"
+              /><br />
+              <p class="p-3">
+                Don't have an account? <a href="register.html">Register here</a>
+              </p>
+              <center>
+                <input type="submit" value="Submit" />
+                <!-- Clear form -->
+                <input type="reset" value="Clear Form" />
+              </center>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-    <h1 class="header-title text-center p-3">Artistic Gallery</h1>
-    <div class="gallery-grid">
-      <img src="assets/images/gallery/gallery-1.jpg" alt="random image" />
-      <img src="assets/images/gallery/gallery-2.jpg" alt="random image" />
-      <img src="assets/images/gallery/gallery-3.jpg" alt="random image" />
-      <img src="assets/images/gallery/gallery-4.jpg" alt="random image" />
-      <img src="assets/images/gallery/gallery-5.jpg" alt="random image" />
-      <img src="assets/images/gallery/gallery-6.jpg" alt="random image" />
-      <img src="assets/images/gallery/gallery-7.jpg" alt="random image" />
-      <img src="assets/images/gallery/gallery-8.jpg" alt="random image" />
-    </div>
-    <script src="assets/js/index.js"></script>
   </body>
 </html>

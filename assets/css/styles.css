@@ -285,8 +285,28 @@ form input[type="reset"] {
     width: 100%;
 }
 
+.w-90 {
+    width: 90%;
+}
+
+.h-90 {
+    height: 90vh;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
 .w-50 {
     width: 50%;
+}
+
+.unset-form-padding {
+    padding: 0;
+}
+
+.unset-form-width {
+    width: unset;
 }
 
 .card-container {
