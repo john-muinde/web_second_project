@@ -169,8 +169,9 @@ table img {
     border-radius: 10px;
 }
 
+/* form */
 form {
-    width: 80%;
+    width: 60%;
     padding: 0 8vw;
 }
 
@@ -196,8 +197,8 @@ form input:not([type="submit"]):not([type="reset"]):focus,
 textarea:focus {
     border-radius: 3px;
     outline: none;
-    border: 2px solid var(--green-primary);
-    color: var(--green-primary);
+    border: 2px solid green;
+    color: green;
     border-radius: 7px;
 }
 
@@ -208,9 +209,9 @@ form textarea {
 
 form input[type="submit"],
 form input[type="reset"] {
-    padding: 10px 20px;
+    padding: 15px 30px;
     border: none;
-    background-color: var(--green-primary);
+    background-color: green;
     color: white;
     cursor: pointer;
     border-radius: 3px;
@@ -224,7 +225,7 @@ form input[type="reset"] {
 }
 
 .form-container {
-    border: var(--green-primary) solid 1px;
+    border: green solid 1px;
     border-radius: 10px;
     padding: 2vw;
 }
@@ -253,7 +254,10 @@ form input[type="reset"] {
     height: auto;
     border-radius: 10px;
 }
-
+.gallery-grid img:hover{
+    transform: scale(1.05);
+    transition: transform 0.9s ease-in-out;
+}
 
 /* Grouped class selectors */
 
