@@ -21,7 +21,7 @@ html,
 
 /* Main Container Section Css */
 .cont {
-    background-image: url("/assets/images/background-hero.jpg");
+    background-image: url("assets/images/background-hero.jpg");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -254,7 +254,8 @@ form input[type="reset"] {
     height: auto;
     border-radius: 10px;
 }
-.gallery-grid img:hover{
+
+.gallery-grid img:hover {
     transform: scale(1.05);
     transition: transform 0.9s ease-in-out;
 }
