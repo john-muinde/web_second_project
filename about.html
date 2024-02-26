@@ -3,30 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="assets/images/favicon/apple-touch-icon.png"
+      href="/assets/images/favicon/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="assets/images/favicon/favicon-32x32.png"
+      href="/assets/images/favicon/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="assets/images/favicon/favicon-16x16.png"
+      href="/assets/images/favicon/favicon-16x16.png"
     />
     <link rel="manifest" href="/site.webmanifest" />
     <title>Artistic Gallery - About Us</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100&display=swap");
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/toaster-ui@1.1.5/dist/main.js"></script>
+    <script src="assets/js/message.js"></script>
   </head>
   <body>
     <div class="cont">
@@ -34,7 +37,7 @@
         <a class="navbar-brand" href="#">
           <img
             class="logo"
-            src="assets/images/logo/logo-artistic-color.png"
+            src="/assets/images/logo/logo-artistic-color.png"
             alt=""
           />
         </a>
@@ -94,7 +97,7 @@
       <div class="card">
         <div class="image">
           <img
-            src="assets/images/john-kim.jpg"
+            src="/assets/images/john-kim.jpg"
             alt=""
             title="Founder - John kim"
           />
@@ -106,7 +109,7 @@
       <div class="card">
         <div class="image">
           <img
-            src="assets/images/lary-mali.jpg"
+            src="/assets/images/lary-mali.jpg"
             alt=""
             title="Founder - Lary Mali"
           />
@@ -118,7 +121,7 @@
       <div class="card">
         <div class="image">
           <img
-            src="assets/images/mik-doe.jpeg"
+            src="/assets/images/mik-doe.jpeg"
             alt=""
             title="Founder - Mik Doe"
           />
@@ -223,7 +226,39 @@
         </div>
       </form>
     </div>
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = form.name.value;
+        const email = form.email.value;
+        const phone = form.phone.value;
+        const address = form.address.value;
+        const message = form.message.value;
 
-    <script src="assets/js/index.js"></script>
+        // check only for important inputs and send separate messages for each
+        let error = false;
+        if (name === "") {
+          error = true;
+          toaster.error("Name is required");
+        }
+        if (email === "") {
+          error = true;
+          toaster.error("Email is required");
+        }
+
+        if (message === "") {
+          error = true;
+          toaster.error("Message is required");
+        }
+
+        if (!error) {
+          toaster.success("Message sent successfully");
+          form.submit();
+        }
+      });
+    </script>
+
+    <script src="/assets/js/index.js"></script>
   </body>
 </html>

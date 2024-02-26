@@ -5,11 +5,11 @@ window.addEventListener("scroll", () => {
     navbar.classList.add("blurred");
     document
       .querySelector(".logo")
-      .setAttribute("src", "assets/images/logo/logo-artistic-black.png");
+      .setAttribute("src", "/assets/images/logo/logo-artistic-black.png");
   } else {
     navbar.classList.remove("blurred");
     document
       .querySelector(".logo")
-      .setAttribute("src", "assets/images/logo/logo-artistic-color.png");
+      .setAttribute("src", "/assets/images/logo/logo-artistic-color.png");
   }
 });

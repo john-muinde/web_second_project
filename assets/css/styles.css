@@ -21,7 +21,7 @@ html,
 
 /* Main Container Section Css */
 .cont {
-    background-image: url("assets/images/background-hero.jpg");
+    background-image: url("/assets/images/background-hero.jpg");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -171,7 +171,7 @@ table img {
 
 /* form */
 form {
-    width: 60%;
+    width: 60vw;
     padding: 0 8vw;
 }
 
@@ -360,4 +360,36 @@ form input[type="reset"] {
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+}
+
+.password-container {
+    position: relative;
+
+}
+
+.password-rules {
+    font-size: 12px;
+    padding-left: 50px;
+}
+
+#password {
+    padding-right: 30px;
+    /* Make room for the eye icon */
+}
+
+#toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.password-rules {
+
+    margin: 0;
+}
+
+.fa{
+    color: black;
 }

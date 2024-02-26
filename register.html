@@ -3,38 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
 
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="assets/images/favicon/apple-touch-icon.png"
+      href="/assets/images/favicon/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="assets/images/favicon/favicon-32x32.png"
+      href="/assets/images/favicon/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="assets/images/favicon/favicon-16x16.png"
+      href="/assets/images/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/font-awesome-4.7.0/css/font-awesome.css"
     />
     <link rel="manifest" href="/site.webmanifest" />
     <title>Artistic Gallery - Register</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100&display=swap");
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/toaster-ui@1.1.5/dist/main.js"></script>
+    <script src="assets/js/message.js"></script>
   </head>
-  <body class="overflow-hidden">
-    <div class="cont">
+  <body class="overflow">
+    <div class="cont" style="height: 100%">
       <nav class="navbar">
         <a class="navbar-brand" href="#">
           <img
             class="logo"
-            src="assets/images/logo/logo-artistic-color.png"
+            src="/assets/images/logo/logo-artistic-color.png"
             alt=""
           />
         </a>
@@ -54,7 +61,12 @@
         </ul>
       </nav>
       <div class="hero-content">
-        <form action="" class="unset-form-padding unset-form-width">
+        <form
+          action=""
+          class="unset-form-padding unset-form-width"
+          style="margin-top: 80px"
+          id="register-form"
+        >
           <div class="form-container">
             <h1 class="header-title text-center">Register</h1>
             <label for="name">Name:</label>
@@ -73,13 +85,41 @@
               placeholder="Enter your email"
             /><br />
 
-            <label for="password">Password Number:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your Password"
-            /><br />
+            <label for="password">Password:</label>
+            <div class="password-container">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your Password"
+              />
+              <i
+                id="toggle-password"
+                class="fa fa-eye-slash"
+                aria-hidden="true"
+              ></i>
+            </div>
+            <br />
+
+            <!-- Create the rules for the password as ul below here -->
+
+            <ul class="password-rules">
+              <li class="password-length">
+                Password must be at least 6 characters
+              </li>
+              <li class="password-uppercase">
+                Password must contain at least one uppercase letter
+              </li>
+              <li class="password-lowercase">
+                Password must contain at least one lowercase letter
+              </li>
+              <li class="password-number">
+                Password must contain at least: one number
+              </li>
+              <li class="password-match">
+                Password and confirm password must match
+              </li>
+            </ul>
 
             <label for="confirm_password">Confirm Password:</label>
             <input
@@ -111,5 +151,125 @@
         </form>
       </div>
     </div>
+    <script>
+      const form = document.querySelector("#register-form");
+      const password = document.querySelector("#password");
+      const confirm_password = document.querySelector("#confirm_password");
+      const passwordRules = document.querySelector(".password-rules");
+      const passwordLength = document.querySelector(".password-length");
+      const passwordUppercase = document.querySelector(".password-uppercase");
+      const passwordLowercase = document.querySelector(".password-lowercase");
+      const passwordNumber = document.querySelector(".password-number");
+      const passwordMatch = document.querySelector(".password-match");
+
+      password.addEventListener("input", (e) => {
+        const value = e.target.value;
+        if (value.length >= 6) {
+          passwordLength.style.color = "green";
+        } else {
+          passwordLength.style.color = "red";
+        }
+
+        const uppercase = /[A-Z]/;
+        if (uppercase.test(value)) {
+          passwordUppercase.style.color = "green";
+        } else {
+          passwordUppercase.style.color = "red";
+        }
+
+        const lowercase = /[a-z]/;
+        if (lowercase.test(value)) {
+          passwordLowercase.style.color = "green";
+        } else {
+          passwordLowercase.style.color = "red";
+        }
+
+        const number = /[0-9]/;
+        if (number.test(value)) {
+          passwordNumber.style.color = "green";
+        } else {
+          passwordNumber.style.color = "red";
+        }
+
+        if (confirm_password.value === value) {
+          passwordMatch.style.color = "green";
+        } else {
+          passwordMatch.style.color = "red";
+        }
+      });
+
+      confirm_password.addEventListener("input", (e) => {
+        const value = e.target.value;
+        if (value === password.value) {
+          passwordMatch.style.color = "green";
+        } else {
+          passwordMatch.style.color = "red";
+        }
+      });
+
+      document
+        .getElementById("toggle-password")
+        .addEventListener("click", function (e) {
+          const passwordInput = document.getElementById("password");
+          const confirmPassword = document.getElementById("confirm_password");
+          const type =
+            passwordInput.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          confirmPassword.setAttribute("type", type);
+          passwordInput.setAttribute("type", type);
+          if (this.classList.contains("fa-eye-slash")) {
+            this.classList.replace("fa-eye-slash", "fa-eye");
+          } else {
+            this.classList.replace("fa-eye", "fa-eye-slash");
+          }
+        });
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirm_password = form.confirm_password.value;
+        const gender = form.gender.value;
+
+        let error = false;
+
+        if (name === "") {
+          toaster.error("Name is required");
+          error = true;
+        }
+        if (email === "") {
+          toaster.error("Email is required");
+          error = true;
+        }
+        if (password === "") {
+          toaster.error("Password is required");
+          error = true;
+        }
+        if (password.length < 6) {
+          toaster.error("Password must be at least 6 characters");
+          error = true;
+        }
+
+        // create a pattern for the password
+        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        if (!pattern.test(password)) {
+          toaster.error(
+            "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+          );
+          error = true;
+        }
+
+        if (password !== confirm_password) {
+          toaster.error("Passwords do not match");
+          error = true;
+        }
+
+        if (!error) {
+          toaster.success("Account created successfully! Redirecting...");
+          form.submit();
+        }
+      });
+    </script>
   </body>
 </html>
