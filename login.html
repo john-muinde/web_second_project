@@ -142,9 +142,12 @@
           error = true;
           toaster.error("Password must be at least 6 characters");
         }
+
         if (!error) {
           toaster.success("Login successful! Redirecting...");
-          form.submit();
+          setTimeout(() => {
+            form.submit();
+          }, 3000);
         }
       });
     </script>

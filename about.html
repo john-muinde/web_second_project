@@ -30,6 +30,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/toaster-ui@1.1.5/dist/main.js"></script>
     <script src="assets/js/message.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
   </head>
   <body>
     <div class="cont">
@@ -158,16 +163,17 @@
             type="number"
             id="phone"
             name="phone"
+            style="padding: 12px 50px"
             placeholder="Enter your phone number"
           /><br />
-
+          <!-- 
           <label for="address">Address:</label>
           <input
             type="text"
             id="address"
             name="address"
             placeholder="Enter your address"
-          /><br />
+          /><br /> -->
           <label for="message">Message:</label>
           <textarea
             id="message"
@@ -178,46 +184,49 @@
           ></textarea
           ><br />
 
-          <label>Gender:</label><br />
+          <!-- <label>Gender:</label><br />
           <div class="d-flex justify-content-center align-items-baseline w-50">
             <label for="male">Male</label>
             <input type="radio" id="male" name="gender" value="male" />
             <label for="female">Female</label>
             <input type="radio" id="female" name="gender" value="female" />
-          </div>
+          </div> -->
 
-          <label>Reasons for Contact:</label><br />
-          <div class="form-group">
-            <input type="checkbox" id="buying" name="reason" value="buying" />
-            <label for="buying">Buying Artwork</label>
-          </div>
-          <div class="form-group">
-            <input
-              type="checkbox"
-              id="donating"
-              name="reason"
-              value="donating"
-            />
-            <label for="donating">Donating Artwork</label>
-          </div>
-          <div class="form-group">
-            <input
-              type="checkbox"
-              id="volunteering"
-              name="reason"
-              value="volunteering"
-            />
-            <label for="volunteering">Volunteering</label>
-          </div>
-          <div class="form-group">
-            <input
-              type="checkbox"
-              id="sponsoring"
-              name="reason"
-              value="sponsoring"
-            />
-            <label for="sponsoring">Sponsoring</label><br />
-          </div>
+          <fieldset>
+            <legend>Reasons for Contact:</legend>
+            <div class="form-group">
+              <input type="checkbox" id="buying" name="reason" value="buying" />
+              <label for="buying">Buying Artwork</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="checkbox"
+                id="donating"
+                name="reason"
+                value="donating"
+              />
+              <label for="donating">Donating Artwork</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="checkbox"
+                id="volunteering"
+                name="reason"
+                value="volunteering"
+              />
+              <label for="volunteering">Volunteering</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="checkbox"
+                id="sponsoring"
+                name="reason"
+                value="sponsoring"
+              />
+              <label for="sponsoring">Sponsoring</label>
+            </div>
+          </fieldset>
+
           <center>
             <input type="submit" value="Contact Us" />
             <!-- Clear form -->
@@ -228,13 +237,44 @@
     </div>
     <script>
       const form = document.querySelector("form");
+
+      function getValues() {
+        // Select all checkboxes with the name "reason[]"
+        const checkboxes = document.querySelectorAll('input[name="reason"]');
+
+        // Filter for the checked checkboxes and map to their values
+        const checkedValues = Array.from(checkboxes)
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => checkbox.value);
+
+        return checkedValues;
+      }
+
+      // intl error codes
+      var errorMap = [
+        "Invalid number format",
+        "Invalid country code: Kindly select a valid country for",
+        "Phone Number is too short",
+        "Phone Number is too long",
+        "Unrecognized Phone number",
+      ];
+
+      const phoneInputField2 = document.querySelector("#phone");
+      const phoneInput2 = window.intlTelInput(phoneInputField2, {
+        preferredCountries: ["ke", "us", "in", "de"],
+        initialCountry: "ke",
+        utilsScript:
+          "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+      });
+
+      console.log(document.querySelector("[name=reason]"));
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         const name = form.name.value;
         const email = form.email.value;
         const phone = form.phone.value;
-        const address = form.address.value;
         const message = form.message.value;
+        const reason = form.reason.value;
 
         // check only for important inputs and send separate messages for each
         let error = false;
@@ -242,9 +282,28 @@
           error = true;
           toaster.error("Name is required");
         }
+
+        // name pattern which also accepts spaces
+        const namePattern = new RegExp("^[a-zA-Z ]{3,}$");
+        if (!namePattern.test(name)) {
+          toaster.error("Name must contain only letters and spaces");
+          error = true;
+        }
         if (email === "") {
           error = true;
           toaster.error("Email is required");
+        }
+
+        if (!phoneInput2.isValidNumber()) {
+          var errorCode = phoneInput2.getValidationError();
+          toaster.error(`${errorMap[errorCode]}: ${phoneInput2.getNumber()}`);
+        } else if (!phoneInput2.getSelectedCountryData().dialCode) {
+          toaster.error(
+            `Kindly select a country for the phone number ${phoneInput2.getNumber()}`
+          );
+          return false;
+        } else {
+          phone.value = phoneInput2.getNumber();
         }
 
         if (message === "") {
@@ -252,9 +311,16 @@
           toaster.error("Message is required");
         }
 
+        if (getValues().length === 0) {
+          error = true;
+          toaster.error("Reason for contact is required");
+        }
+
         if (!error) {
           toaster.success("Message sent successfully");
-          form.submit();
+          setTimeout(() => {
+            form.submit();
+          }, 3000);
         }
       });
     </script>

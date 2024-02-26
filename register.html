@@ -116,6 +116,9 @@
               <li class="password-number">
                 Password must contain at least: one number
               </li>
+              <li class="password-symbol">
+                Password must contain at least: one symbol
+              </li>
               <li class="password-match">
                 Password and confirm password must match
               </li>
@@ -157,6 +160,7 @@
       const confirm_password = document.querySelector("#confirm_password");
       const passwordRules = document.querySelector(".password-rules");
       const passwordLength = document.querySelector(".password-length");
+      const passwordSymbol = document.querySelector(".password-symbol");
       const passwordUppercase = document.querySelector(".password-uppercase");
       const passwordLowercase = document.querySelector(".password-lowercase");
       const passwordNumber = document.querySelector(".password-number");
@@ -189,6 +193,13 @@
           passwordNumber.style.color = "green";
         } else {
           passwordNumber.style.color = "red";
+        }
+
+        const symbol = /[!@#\$%\^&\*]/;
+        if (symbol.test(value)) {
+          passwordSymbol.style.color = "green";
+        } else {
+          passwordSymbol.style.color = "red";
         }
 
         if (confirm_password.value === value) {
@@ -238,6 +249,14 @@
           toaster.error("Name is required");
           error = true;
         }
+
+        // name pattern which also accepts spaces
+        const namePattern = new RegExp("^[a-zA-Z ]{3,}$");
+        if (!namePattern.test(name)) {
+          toaster.error("Name must contain only letters and spaces");
+          error = true;
+        }
+
         if (email === "") {
           toaster.error("Email is required");
           error = true;
@@ -246,13 +265,19 @@
           toaster.error("Password is required");
           error = true;
         }
+        if (gender === "") {
+          toaster.error("Gender is required");
+          error = true;
+        }
         if (password.length < 6) {
           toaster.error("Password must be at least 6 characters");
           error = true;
         }
 
         // create a pattern for the password
-        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        const pattern = new RegExp(
+          "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])"
+        );
         if (!pattern.test(password)) {
           toaster.error(
             "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
@@ -267,7 +292,9 @@
 
         if (!error) {
           toaster.success("Account created successfully! Redirecting...");
-          form.submit();
+          setTimeout(() => {
+            form.submit();
+          }, 3000);
         }
       });
     </script>

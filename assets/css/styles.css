@@ -390,6 +390,16 @@ form input[type="reset"] {
     margin: 0;
 }
 
-.fa{
-    color: black;
+.fa {
+    color: var(--green-primary);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.iti {
+    width: 100%;
 }
