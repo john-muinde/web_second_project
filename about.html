@@ -279,41 +279,43 @@
         // check only for important inputs and send separate messages for each
         let error = false;
         if (name === "") {
-          error = true;
           toaster.error("Name is required");
+          return;
         }
 
         // name pattern which also accepts spaces
         const namePattern = new RegExp("^[a-zA-Z ]{3,}$");
         if (!namePattern.test(name)) {
           toaster.error("Name must contain only letters and spaces");
-          error = true;
+          return;
         }
         if (email === "") {
-          error = true;
+          return;
           toaster.error("Email is required");
         }
 
         if (!phoneInput2.isValidNumber()) {
           var errorCode = phoneInput2.getValidationError();
           toaster.error(`${errorMap[errorCode]}: ${phoneInput2.getNumber()}`);
+          return;
         } else if (!phoneInput2.getSelectedCountryData().dialCode) {
           toaster.error(
             `Kindly select a country for the phone number ${phoneInput2.getNumber()}`
           );
           return false;
+          return;
         } else {
           phone.value = phoneInput2.getNumber();
         }
 
         if (message === "") {
-          error = true;
           toaster.error("Message is required");
+          return;
         }
 
         if (getValues().length === 0) {
-          error = true;
           toaster.error("Reason for contact is required");
+          return;
         }
 
         if (!error) {

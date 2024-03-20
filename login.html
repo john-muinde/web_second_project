@@ -131,16 +131,16 @@
 
         let error = false;
         if (email === "") {
-          error = true;
           toaster.error("Email is required");
+          return;
         }
         if (password === "") {
-          error = true;
           toaster.error("Password is required");
+          return;
         }
         if (password.length < 6) {
-          error = true;
           toaster.error("Password must be at least 6 characters");
+          return;
         }
 
         if (!error) {

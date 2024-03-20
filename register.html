@@ -247,31 +247,31 @@
 
         if (name === "") {
           toaster.error("Name is required");
-          error = true;
+          return;
         }
 
         // name pattern which also accepts spaces
         const namePattern = new RegExp("^[a-zA-Z ]{3,}$");
         if (!namePattern.test(name)) {
           toaster.error("Name must contain only letters and spaces");
-          error = true;
+          return;
         }
 
         if (email === "") {
           toaster.error("Email is required");
-          error = true;
+          return;
         }
         if (password === "") {
           toaster.error("Password is required");
-          error = true;
+          return;
         }
         if (gender === "") {
           toaster.error("Gender is required");
-          error = true;
+          return;
         }
         if (password.length < 6) {
           toaster.error("Password must be at least 6 characters");
-          error = true;
+          return;
         }
 
         // create a pattern for the password
@@ -282,12 +282,12 @@
           toaster.error(
             "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
           );
-          error = true;
+          return;
         }
 
         if (password !== confirm_password) {
           toaster.error("Passwords do not match");
-          error = true;
+          return;
         }
 
         if (!error) {

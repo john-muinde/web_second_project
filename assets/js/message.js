@@ -2,7 +2,7 @@ window.onload = () => {
   const toaster = new ToasterUi();
 
   const options = {
-    duration: 3000,
+    duration: 3500,
     // styles: {
     //   backgroundColor: "#ff0000",
     //   color: "#ffffff",
