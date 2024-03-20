@@ -1,9 +1,11 @@
 <?php
 $page = "Login";
 $body_class = "overflow-hidden";
+
+ob_start();
 ?>
 <div class="d-flex justify-content-center">
-  <form action="" class="unset-form-padding unset-form-width" id="login-form">
+  <form method="post" class="unset-form-padding unset-form-width" id="login-form">
     <div class="form-container">
       <h1 class="header-title text-center">Login</h1>
       <label for="email">Email:</label>
@@ -29,6 +31,34 @@ $body_class = "overflow-hidden";
 <?php
 $heroContent = ob_get_clean();
 include 'includes/header.php';
+
+$success = "";
+$unsuccess = "";
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $user = mysqli_query($DB, "SELECT * FROM accounts WHERE email = '$email'");
+  if (!$user || mysqli_num_rows($user) <= 0) {
+    $unsuccess = "User does not exist";
+  } else {
+    $user = mysqli_fetch_assoc($user);
+    $password_match = password_verify($password, $user['password']);
+    if ($password_match) {
+      $success = "Login successful. Welcome " . $user['email'];
+      $_SESSION['user'] = $user;
+      $_SESSION['success'] = $success;
+      $_SESSION['unsuccess'] = $unsuccess;
+      echo "<script>location.href='index.php'</script>";
+    } else {
+      $unsuccess = "Password is incorrect";
+    }
+  }
+  $_SESSION['success'] = $success;
+  $_SESSION['unsuccess'] = $unsuccess;
+}
+
 ?>
 
 <script>
@@ -70,13 +100,12 @@ include 'includes/header.php';
     }
 
     if (!error) {
-      toaster.success("Login successful! Redirecting...");
-      setTimeout(() => {
-        form.submit();
-      }, 3000);
+      form.submit();
     }
   });
 </script>
-</body>
 
-</html>
+
+<?php
+include 'includes/footer.php';
+?>

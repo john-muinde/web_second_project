@@ -5,7 +5,8 @@ $cont_class = "h-100";
 ob_start();
 ?>
 
-<form action="" class="unset-form-padding unset-form-width" style="margin-top: 25vh" id="register-form">
+
+<form method="post" class="unset-form-padding unset-form-width" style="margin-top: 25vh" id="register-form">
   <div class="form-container">
     <h1 class="header-title text-center">Register</h1>
     <label for="name">Name:</label>
@@ -69,8 +70,41 @@ ob_start();
 <?php
 $heroContent = ob_get_clean();
 include 'includes/header.php';
-?>
 
+$unsuccess = "";
+$success = "";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $password_confirm = $_POST['confirm_password'];
+  $gender = $_POST['gender'];
+
+  if ($password !== $password_confirm) {
+    $unsuccess = "Passwords do not match";
+  }
+
+  $user = mysqli_query($DB, "SELECT * FROM accounts WHERE email = '$email'");
+
+  if ($user && mysqli_num_rows($user) > 0) {
+    $unsuccess = "Email already exists";
+  } else {
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO accounts (email,password,gender) VALUES ('$email','$password_hash','$gender')";
+    $result = mysqli_query($DB, $sql);
+
+    if ($result) {
+      $success =  "Account created successfully";
+      $_SESSION['success'] = $success;
+      $_SESSION['unsuccess'] = $unsuccess;
+      echo "<script>location.href='login.php'</script>";
+    } else {
+      $unsuccess = "Error: " . $sql . "<br>" . mysqli_error($DB);
+    }
+  }
+  $_SESSION['success'] = $success;
+  $_SESSION['unsuccess'] = $unsuccess;
+}
+?>
 
 <script>
   const form = document.querySelector("#register-form");
@@ -209,10 +243,7 @@ include 'includes/header.php';
     }
 
     if (!error) {
-      toaster.success("Account created successfully! Redirecting...");
-      setTimeout(() => {
-        form.submit();
-      }, 3000);
+      form.submit();
     }
   });
 </script>
