@@ -7,9 +7,15 @@ $user = $_SESSION['user'];
 ob_start();
 ?>
 
-
-<form method="post" class="unset-form-padding unset-form-width" style="margin-top: 16vh" id="register-form">
+<form method="post" action="update_profile.php" class="unset-form-padding unset-form-width" style="margin-top: 16vh" id="register-form" enctype="multipart/form-data">
     <div class="form-container">
+        <!-- add a profile picture with an upload button -->
+        <div class="d-flex justify-content-center align-items-center flex-column">
+            <img id="image_preview" src="<?= isset($user['profile_picture']) && !empty($user['profile_picture']) ? $user['profile_picture'] : 'https://via.placeholder.com/150' ?>" alt="profile picture" class="rounded-circle" />
+            <input type="file" name="profile_picture" id="profile_picture" style="display: none" onchange="previewImage(event)" />
+            <div></div>
+            <label for="profile_picture" class="btn btn-primary">Upload Picture</label>
+        </div>
         <h1 class="header-title text-center">Profile</h1>
         <label for="name">Name:</label>
         <input type="text" id="name" name="full_name" value="<?= $user['full_name'] ?>" /><br />
@@ -57,6 +63,17 @@ ob_start();
         </div>
 
         <script>
+            function previewImage(event) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var output = document.getElementById('image_preview');
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        </script>
+
+        <script>
             document.getElementById('update_password').addEventListener('change', function() {
                 document.getElementById('password_fields').style.display = this.checked ? 'block' : 'none';
                 document.querySelector('.cont').classList.toggle('h-100');
@@ -80,48 +97,6 @@ ob_start();
 <?php
 $heroContent = ob_get_clean();
 include 'includes/header.php';
-
-$unsuccess = "";
-$success = "";
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $password_confirm = $_POST['confirm_password'];
-    $gender = $_POST['gender'];
-    $update_password = $_POST['update_password'] ?? 0;
-
-    $data = [
-        'full_name' => $_POST['full_name'],
-        'email' => $email,
-        'gender' => $gender
-    ];
-
-    if ($update_password) {
-
-        if ($password !== $password_confirm) {
-            $unsuccess = "Passwords do not match";
-        }
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-        $data['password'] = $password_hash;
-
-        $sql = "UPDATE accounts SET full_name = '{$data['full_name']}',gender = '{$data['gender']}', email = '{$data['email']}', password = '{$data['password']}' WHERE id = {$user['id']}";
-    } else {
-        $sql = "UPDATE accounts SET full_name = '{$data['full_name']}',gender = '{$data['gender']}', email = '{$data['email']}' WHERE id = {$user['id']}";
-    }
-
-    $result = mysqli_query($DB, $sql);
-
-    if ($result) {
-        $success =  "Account updated successfully";
-    } else {
-        $unsuccess = "Error: " . $sql . "<br>" . mysqli_error($DB);
-    }
-    $user = mysqli_fetch_assoc(mysqli_query($DB, "SELECT * FROM accounts WHERE id = {$user['id']}"));
-    $_SESSION['user'] = $user;
-    $_SESSION['success'] = $success;
-    $_SESSION['unsuccess'] = $unsuccess;
-}
 ?>
 
 <script>

@@ -1,8 +1,6 @@
 <?php
 include 'connect.php';
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+include 'operations.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +27,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
     <?php
-    echo json_encode($_SESSION);
+    //echo json_encode($_SESSION);
     ?>
     <script>
         <?php
@@ -56,12 +54,12 @@ if (session_status() == PHP_SESSION_NONE) {
 
         if (isset($success) && $success !== "") {
             echo "window.toaster.success('{$success}');";
-            //$_SESSION['success'] = "";
+            $_SESSION['success'] = "";
         }
 
         if (isset($unsuccess) && $unsuccess !== "") {
             echo "window.toaster.error('{$unsuccess}');";
-            //$_SESSION['unsuccess'] = "";
+            $_SESSION['unsuccess'] = "";
         }
         echo "};";
         ?>
