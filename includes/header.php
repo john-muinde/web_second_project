@@ -1,6 +1,5 @@
 <?php
-include 'connect.php';
-include 'operations.php';
+include 'includes/session.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +26,11 @@ include 'operations.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
     <?php
-    //echo json_encode($_SESSION);
+    echo $extraCss ?? '';
+    ?>
+
+    <?php
+    echo json_encode($_SESSION);
     ?>
     <script>
         <?php
@@ -69,7 +72,7 @@ include 'operations.php';
 
 <body class="<?= $body_class ?>">
     <div class="cont <?= $cont_class ?>">
-        <nav class="navbar">
+        <nav class="custom navbar">
             <a class="navbar-brand" href="#">
                 <img class="logo" src="/assets/images/logo/logo-artistic-color.png" alt="" />
             </a>
@@ -83,6 +86,7 @@ include 'operations.php';
                     "Register" => ["route" => "register.php", "page" => "Register", "visible" => !isset($_SESSION['user'])],
                     "Logout" => ["route" => "logout.php", "page" => "Logout", "visible" => isset($_SESSION['user'])],
                     "Profile" => ["route" => "profile.php", "page" => "Profile", "visible" => isset($_SESSION['user'])],
+                    "Wishlist" => ["route" => "wishlist.php", "page" => "Wishlist", "visible" => isset($_SESSION['user'])],
                 ];
 
                 foreach ($navItems as $key => $value) {

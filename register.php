@@ -1,4 +1,5 @@
 <?php
+include 'operations.php';
 $page = "Register";
 $body_class = "overflow";
 $cont_class = "h-100";
@@ -10,7 +11,7 @@ ob_start();
   <div class="form-container">
     <h1 class="header-title text-center">Register</h1>
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" placeholder="Enter your name" /><br />
+    <input type="text" id="name" name="full_name" placeholder="Enter your name" /><br />
 
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" placeholder="Enter your email" /><br />
@@ -78,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $password = $_POST['password'];
   $password_confirm = $_POST['confirm_password'];
   $gender = $_POST['gender'];
+  $full_name = $_POST['full_name'];
 
   if ($password !== $password_confirm) {
     $unsuccess = "Passwords do not match";
@@ -89,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $unsuccess = "Email already exists";
   } else {
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "INSERT INTO accounts (email,password,gender) VALUES ('$email','$password_hash','$gender')";
+    $sql = "INSERT INTO accounts (email,password,gender,full_name) VALUES ('$email','$password_hash','$gender','$full_name')";
     $result = mysqli_query($DB, $sql);
 
     if ($result) {
@@ -189,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     });
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name = form.name.value;
+    const name = form.full_name.value;
     const email = form.email.value;
     const password = form.password.value;
     const confirm_password = form.confirm_password.value;

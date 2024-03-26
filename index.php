@@ -1,4 +1,5 @@
 <?php
+include 'operations.php';
 $page = "Index";
 ob_start();
 ?>

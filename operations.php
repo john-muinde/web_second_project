@@ -1,8 +1,6 @@
 <?php
-
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+include 'includes/session.php';
+include 'includes/connect.php';
 
 $images = [
     ["id" => 1, "name" => "Mona Lisa by Leonardo da Vinci", "price" => 545894, "src" => "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/405px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"],

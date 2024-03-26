@@ -2,6 +2,7 @@
 :root {
     --green-primary: #8abe53;
     --black: #21252f;
+    --primary: #8abe53;
     --grey: #807c7c;
     --text-color: #878383;
     --white: #ffffff;
@@ -39,14 +40,14 @@ html,
 
 /* Navbar Css section  */
 .navbar {
-    z-index: 1;
-    display: flex;
-    width: 100%;
-    font-weight: 600;
+    z-index: 1 !important;
+    display: flex !important;
+    width: 100% !important;
+    font-weight: 600 !important;
     /* justify-content: space-between; */
-    position: fixed;
-    padding: 20px 0;
-    transition: background-color 0.3s ease-in-out;
+    position: fixed !important;
+    padding: 20px 0 !important;
+    transition: background-color 0.3s ease-in-out !important;
 }
 
 .navbar-brand {
@@ -68,6 +69,7 @@ html,
     gap: 30px;
     padding: 0 0 0 20vw;
     align-items: center;
+    flex-direction: row;
 
 }
 

@@ -1,4 +1,5 @@
 <?php
+include 'operations.php';
 $page = "Gallery";
 ob_start();
 ?>

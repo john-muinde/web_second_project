@@ -1,8 +1,8 @@
 <?php
+include 'operations.php';
 $page = "Profile";
 $body_class = "overflow";
-//$cont_class = "h-100";
-session_start();
+
 $user = $_SESSION['user'];
 ob_start();
 ?>

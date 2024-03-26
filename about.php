@@ -1,4 +1,5 @@
 <?php
+include 'operations.php';
 $page = "About Us";
 ob_start();
 ?>

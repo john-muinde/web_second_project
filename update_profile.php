@@ -1,14 +1,12 @@
 <?php
-include 'includes/connect.php';
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
+include 'includes/operations.php';
 
-    if (!isset($_SESSION['user'])) {
-        $_SESSION['success'] = "";
-        $_SESSION['unsuccess'] = "Kindly login to access the page";
-        echo "<script>location.href='login.php'</script>";
-    }
+if (!isset($_SESSION['user'])) {
+    $_SESSION['success'] = "";
+    $_SESSION['unsuccess'] = "Kindly login to access the page";
+    echo "<script>location.href='login.php'</script>";
 }
+
 
 $user = $_SESSION['user'];
 

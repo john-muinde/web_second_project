@@ -1,5 +1,5 @@
 <?php
-$_DB_PASSWORD = "";
+$_DB_PASSWORD = "root";
 $_DB_USERNAME = "root";
 $_DB_DATABASE = "groupa";
 $_DB_HOST = "localhost";

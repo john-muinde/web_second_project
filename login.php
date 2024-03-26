@@ -1,4 +1,5 @@
 <?php
+include 'operations.php';
 $page = "Login";
 $body_class = "overflow-hidden";
 
@@ -40,8 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $email = $_POST['email'];
   $password = $_POST['password'];
   $user = mysqli_query($DB, "SELECT * FROM accounts WHERE email = '$email'");
+
   if (!$user || mysqli_num_rows($user) <= 0) {
-    $unsuccess = "User does not exist";
+    $unsuccess = "Kindly register an account first.";
+    $_SESSION['success'] = $success;
+    $_SESSION['unsuccess'] = $unsuccess;
   } else {
     $user = mysqli_fetch_assoc($user);
     $password_match = password_verify($password, $user['password']);
@@ -54,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
       $unsuccess = "Password is incorrect";
     }
+    $_SESSION['success'] = $success;
+    $_SESSION['unsuccess'] = $unsuccess;
   }
-  $_SESSION['success'] = $success;
-  $_SESSION['unsuccess'] = $unsuccess;
 }
 
 ?>
